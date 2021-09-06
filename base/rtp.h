@@ -39,7 +39,7 @@ struct RtpHeader{
     uint16_t seq;           // sequence number
 
     /* bytes 4-7 */
-    uin32_t timestamp;
+    uint32_t timestamp;
 
     /* bytes 8-11 */
     uint32_t ssrc;
@@ -49,6 +49,12 @@ struct RtpHeader{
 struct RtpPacket{
     struct RtpHeader header;
     char* payload;
+};
+
+/* 区分传输方式，目前只支持UDP方式进行传输 */
+enum TransportType{
+    RTP_OVER_TCP,
+    RTP_OVER_UDP,
 };
 
 

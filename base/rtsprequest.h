@@ -7,7 +7,7 @@
 
 
 #include <unordered_map>
-
+#include "rtp.h"
 #include "muduo/net/Buffer.h"
 
 class RtspRequest{
@@ -78,7 +78,7 @@ private:
      * @param end
      * @return success for true and fail for false
      */
-    bool parseRequestLine(char* start, char* end);
+    bool parseRequestLine(const char* start, const char* end);
 
     /**
      * 解析请求头
@@ -86,16 +86,27 @@ private:
      * @param end
      * @return success for true and fail for false
      */
-    bool parseHeader(char* start, char* end);
+    bool parseHeader(const char* start, const char* end);
 
 
-    bool parseCSeq(std::string& message);
+
+    bool parseCSeq(std::string& message); /* 所有请求都需要解析 */
+    bool parseAccept(std::string& message);
+
+    /**
+     * 用于解析Setup请求中的Transport字段，获取对应的频道
+     * @param message
+     * @return
+     */
+    bool parseTransport(std::string& message);
+    bool parseSessionID(std::string& message);
 
 
 
 private:
 
     Method method_;     // 请求方法
+    TransportType transportType_;   // 传输方法
     std::string url_;
     std::string version_;
     RtspRequestParseState state_;   // 目前状态

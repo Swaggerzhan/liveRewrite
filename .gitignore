@@ -1,3 +1,4 @@
 cmake-build-debug/
+cmake-build-debug-remote-host/
 .idea/
 .vscode/
