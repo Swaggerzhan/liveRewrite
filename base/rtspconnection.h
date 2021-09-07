@@ -6,9 +6,9 @@
 #define LIVEREWRITE_RTSPCONNECTION_H
 
 #include <memory>
+#include "muduo/net/TcpConnection.h"
 
-
-
+class RtspServer;
 class Media;
 class RtspRequest;
 class RtspRespond;
@@ -16,13 +16,15 @@ class RtspRespond;
 class RtspConnection{
 public:
 
-    RtspConnection();
+    RtspConnection(RtspServer* server, const muduo::net::TcpConnectionPtr& conn);
     ~RtspConnection();
 
-
+    /* 请求入口 */
+    void handleMessage();
     // 处理describe请求
     void handleCmdDescribe();
 
+private:
 
 
 private:
